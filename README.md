@@ -66,3 +66,8 @@ src/
 ## Data & Privacy
 
 All data is stored in `localStorage` under the key `weight-tracker-app-state`. Nothing is sent to any server. Use the **Export CSV** button in History to back up your data, or **Reset** in the nav bar to wipe everything.
+
+
+## Hosted Option
+
+I have a version running [https://wtrkr.cmwolford.com/] (https://wtrkr.cmwolford.com/). 
