@@ -39,6 +39,145 @@ body {
   color: #666;
 }
 
+/* ── Reset modal ───────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.reset-modal {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 420px;
+  width: 90%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.reset-modal h2 {
+  margin: 0 0 12px 0;
+  color: #333;
+  font-size: 20px;
+}
+
+.reset-modal-text {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.reset-modal-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.reset-only-btn {
+  background: #fee2e2;
+  color: #dc2626;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reset-only-btn:hover {
+  background: #fecaca;
+}
+
+.export-reset-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.export-reset-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* ── Profile edit modal ────────────────────────────────── */
+.profile-edit-modal {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 420px;
+  width: 90%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.profile-edit-modal h2 {
+  margin: 0 0 20px 0;
+  color: #333;
+  font-size: 20px;
+}
+
+.profile-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.unit-toggle-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.unit-btn {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  background: white;
+  color: #666;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.unit-btn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.height-imperial {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.height-imperial input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.unit-label {
+  color: #666;
+  font-size: 13px;
+  font-weight: 500;
+}
+
 /* ── Dark mode ─────────────────────────────────────────── */
 :root[data-theme="dark"] {
   color-scheme: dark;
@@ -176,6 +315,51 @@ body {
 
 :root[data-theme="dark"] .modal-overlay {
   background: rgba(0, 0, 0, 0.7);
+}
+
+:root[data-theme="dark"] .reset-modal,
+:root[data-theme="dark"] .profile-edit-modal {
+  background: #1e2029;
+}
+
+:root[data-theme="dark"] .reset-modal h2,
+:root[data-theme="dark"] .profile-edit-modal h2 {
+  color: #e4e6ef;
+}
+
+:root[data-theme="dark"] .unit-btn {
+  background: #2a2d38;
+  border-color: #3a3d4a;
+  color: #9ca3af;
+}
+
+:root[data-theme="dark"] .unit-btn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: transparent;
+}
+
+:root[data-theme="dark"] .unit-label {
+  color: #9ca3af;
+}
+
+:root[data-theme="dark"] .height-imperial input {
+  background: #2a2d38;
+  border-color: #3a3d4a;
+  color: #e4e6ef;
+}
+
+:root[data-theme="dark"] .reset-modal-text {
+  color: #9ca3af;
+}
+
+:root[data-theme="dark"] .reset-only-btn {
+  background: #3b1515;
+  color: #f87171;
+}
+
+:root[data-theme="dark"] .reset-only-btn:hover {
+  background: #4a1a1a;
 }
 
 :root[data-theme="dark"] .nsv-section {

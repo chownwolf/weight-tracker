@@ -93,6 +93,22 @@
   background: rgba(255, 255, 255, 0.25);
 }
 
+.edit-profile-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.edit-profile-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
 .reset-btn {
   background: rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.4);

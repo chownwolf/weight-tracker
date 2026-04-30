@@ -5,6 +5,7 @@ interface NavigationProps {
   currentPage: 'dashboard' | 'charts' | 'history';
   onPageChange: (page: 'dashboard' | 'charts' | 'history') => void;
   onResetProfile: () => void;
+  onEditProfile: () => void;
   profileName: string;
   darkMode: boolean;
   onToggleDark: () => void;
@@ -14,6 +15,7 @@ export const Navigation: React.FC<NavigationProps> = ({
   currentPage,
   onPageChange,
   onResetProfile,
+  onEditProfile,
   profileName,
   darkMode,
   onToggleDark,
@@ -54,6 +56,9 @@ export const Navigation: React.FC<NavigationProps> = ({
             title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
           >
             {darkMode ? '☀️' : '🌙'}
+          </button>
+          <button className="edit-profile-btn" onClick={onEditProfile} title="Edit profile">
+            Edit Profile
           </button>
           <button className="reset-btn" onClick={onResetProfile} title="Reset profile and start over">
             Reset
