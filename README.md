@@ -70,4 +70,4 @@ All data is stored in `localStorage` under the key `weight-tracker-app-state`. N
 
 ## Hosted Option
 
-I have a version running [https://wtrkr.cmwolford.com/] (https://wtrkr.cmwolford.com/). 
+I have a version running [https://wtrkr.cmwolford.com/](https://wtrkr.cmwolford.com/) in your browser of choice. 
