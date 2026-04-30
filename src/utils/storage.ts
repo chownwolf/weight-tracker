@@ -144,5 +144,15 @@ export const exportDataAsCSV = (): string => {
       csv += `${entry.date},${entry.weight},"${entry.notes || ''}"\n`;
     });
 
+  if (state.victories.length > 0) {
+    csv += '\n\nNon-Scale Victories\n';
+    csv += 'Date,Victory\n';
+    state.victories
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+      .forEach((v) => {
+        csv += `${v.date},"${v.text}"\n`;
+      });
+  }
+
   return csv;
 };
