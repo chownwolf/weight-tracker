@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import type { Profile, WeightEntry } from '../types';
+import type { Profile, WeightEntry, NonScaleVictory } from '../types';
 import { useCalculations } from '../hooks/useCalculations';
 import { displayWeight, inputToKg, weightUnit } from '../utils/units';
 import { format } from 'date-fns';
@@ -8,15 +8,21 @@ import './Dashboard.css';
 interface DashboardProps {
   profile: Profile;
   entries: WeightEntry[];
+  victories: NonScaleVictory[];
   onAddEntry: (weight: number, date: string, notes?: string) => void;
   onUpdateGoal: (goalWeight: number, goalDate: string) => void;
+  onAddVictory: (text: string, date: string) => void;
+  onDeleteVictory: (id: string) => void;
 }
 
 export const Dashboard: React.FC<DashboardProps> = ({
   profile,
   entries,
+  victories,
   onAddEntry,
   onUpdateGoal,
+  onAddVictory,
+  onDeleteVictory,
 }) => {
   const { stats, goalProjection, streak } = useCalculations(profile, entries);
   const units = profile.units ?? 'metric';
@@ -27,6 +33,17 @@ export const Dashboard: React.FC<DashboardProps> = ({
     date: format(new Date(), 'yyyy-MM-dd'),
     notes: '',
   });
+  const [nsvText, setNsvText] = useState('');
+  const [nsvDate, setNsvDate] = useState(format(new Date(), 'yyyy-MM-dd'));
+
+  const handleNsvSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!nsvText.trim()) return;
+    onAddVictory(nsvText.trim(), nsvDate);
+    setNsvText('');
+    setNsvDate(format(new Date(), 'yyyy-MM-dd'));
+  };
+
   const [showGoalModal, setShowGoalModal] = useState(false);
   const [goalData, setGoalData] = useState({
     goalWeight: profile.goalWeight ? displayWeight(profile.goalWeight, units).toString() : '',
@@ -212,6 +229,63 @@ export const Dashboard: React.FC<DashboardProps> = ({
                 Set a Weight Goal
               </button>
             </div>
+          )}
+        </div>
+
+        <div className="nsv-section">
+          <h2>Non-Scale Victories</h2>
+          <form onSubmit={handleNsvSubmit} className="nsv-form">
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="nsv-date">Date</label>
+                <input
+                  id="nsv-date"
+                  type="date"
+                  value={nsvDate}
+                  onChange={(e) => setNsvDate(e.target.value)}
+                />
+              </div>
+              <div className="form-group nsv-text-group">
+                <label htmlFor="nsv-text">Victory</label>
+                <input
+                  id="nsv-text"
+                  type="text"
+                  placeholder="e.g. Ran 5K without stopping"
+                  value={nsvText}
+                  onChange={(e) => setNsvText(e.target.value)}
+                />
+              </div>
+            </div>
+            <button type="submit" className="submit-btn">
+              Add Victory
+            </button>
+          </form>
+
+          {victories.length === 0 ? (
+            <p className="nsv-empty">No victories logged yet. Celebrate every win!</p>
+          ) : (
+            <ul className="nsv-list">
+              {[...victories]
+                .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                .map((v) => (
+                  <li key={v.id} className="nsv-item">
+                    <div className="nsv-item-content">
+                      <span className="nsv-trophy">🏆</span>
+                      <div>
+                        <div className="nsv-item-text">{v.text}</div>
+                        <div className="nsv-item-date">{format(new Date(v.date), 'MMM d, yyyy')}</div>
+                      </div>
+                    </div>
+                    <button
+                      className="nsv-delete-btn"
+                      onClick={() => onDeleteVictory(v.id)}
+                      aria-label="Delete victory"
+                    >
+                      ×
+                    </button>
+                  </li>
+                ))}
+            </ul>
           )}
         </div>
       </div>

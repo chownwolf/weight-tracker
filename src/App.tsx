@@ -11,7 +11,7 @@ import './App.css';
 type PageType = 'dashboard' | 'charts' | 'history';
 
 function App() {
-  const { profile, entries, isLoading, saveProfile, addWeightEntry, updateWeightEntry, deleteWeightEntry } = useWeightData();
+  const { profile, entries, victories, isLoading, saveProfile, addWeightEntry, updateWeightEntry, deleteWeightEntry, addVictory, deleteVictory } = useWeightData();
   const [currentPage, setCurrentPage] = useState<PageType>('dashboard');
   const [darkMode, setDarkMode] = useState(() => localStorage.getItem('darkMode') === 'true');
 
@@ -67,8 +67,11 @@ function App() {
           <Dashboard
             profile={profile}
             entries={entries}
+            victories={victories}
             onAddEntry={addWeightEntry}
             onUpdateGoal={handleUpdateGoal}
+            onAddVictory={addVictory}
+            onDeleteVictory={deleteVictory}
           />
         )}
 

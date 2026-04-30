@@ -18,9 +18,16 @@ export interface WeightEntry {
   notes?: string; // Optional notes
 }
 
+export interface NonScaleVictory {
+  id: string;
+  date: string;
+  text: string;
+}
+
 export interface AppState {
   profile: Profile | null;
   entries: WeightEntry[];
+  victories: NonScaleVictory[];
 }
 
 export interface WeightStats {

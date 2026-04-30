@@ -263,6 +263,97 @@
   background: #e0e0e0;
 }
 
+.nsv-section {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin-top: 20px;
+}
+
+.nsv-section h2 {
+  margin: 0 0 20px 0;
+  color: #333;
+  font-size: 18px;
+}
+
+.nsv-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.nsv-text-group {
+  flex: 1;
+}
+
+.nsv-empty {
+  color: #999;
+  font-size: 14px;
+  text-align: center;
+  padding: 20px 0;
+  margin: 0;
+}
+
+.nsv-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nsv-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background: #f9f9ff;
+  border-radius: 8px;
+  border-left: 3px solid #667eea;
+}
+
+.nsv-item-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nsv-trophy {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.nsv-item-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.nsv-item-date {
+  font-size: 12px;
+  color: #999;
+  margin-top: 2px;
+}
+
+.nsv-delete-btn {
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+  flex-shrink: 0;
+  transition: color 0.2s ease;
+}
+
+.nsv-delete-btn:hover {
+  color: #e55;
+}
+
 @media (max-width: 768px) {
   .main-content {
     grid-template-columns: 1fr;

@@ -6,13 +6,15 @@ import {
   addWeightEntry as storageAddEntry,
   updateWeightEntry as storageUpdateEntry,
   deleteWeightEntry as storageDeleteEntry,
+  addNonScaleVictory as storageAddVictory,
+  deleteNonScaleVictory as storageDeleteVictory,
 } from '../utils/storage';
 
 /**
  * Custom hook for managing weight data and profile
  */
 export const useWeightData = () => {
-  const [state, setState] = useState<AppState>({ profile: null, entries: [] });
+  const [state, setState] = useState<AppState>({ profile: null, entries: [], victories: [] });
   const [isLoading, setIsLoading] = useState(true);
 
   // Load initial state from localStorage
@@ -62,14 +64,28 @@ export const useWeightData = () => {
     storageDeleteEntry(id);
   }, []);
 
+  const addVictory = useCallback((text: string, date: string) => {
+    const victory = { id: generateId(), date, text };
+    setState((prev) => ({ ...prev, victories: [...prev.victories, victory] }));
+    storageAddVictory(victory);
+  }, []);
+
+  const deleteVictory = useCallback((id: string) => {
+    setState((prev) => ({ ...prev, victories: prev.victories.filter((v) => v.id !== id) }));
+    storageDeleteVictory(id);
+  }, []);
+
   return {
     profile: state.profile,
     entries: state.entries,
+    victories: state.victories,
     isLoading,
     saveProfile,
     addWeightEntry,
     updateWeightEntry,
     deleteWeightEntry,
+    addVictory,
+    deleteVictory,
   };
 };
 

@@ -1,4 +1,4 @@
-import type { Profile, WeightEntry, AppState } from '../types';
+import type { Profile, WeightEntry, AppState, NonScaleVictory } from '../types';
 
 const STORAGE_KEY = 'weight-tracker-app-state';
 
@@ -9,12 +9,13 @@ export const loadAppState = (): AppState => {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (!stored) {
-      return { profile: null, entries: [] };
+      return { profile: null, entries: [], victories: [] };
     }
-    return JSON.parse(stored);
+    const parsed = JSON.parse(stored);
+    return { victories: [], ...parsed };
   } catch (error) {
     console.error('Error loading app state:', error);
-    return { profile: null, entries: [] };
+    return { profile: null, entries: [], victories: [] };
   }
 };
 
@@ -89,6 +90,18 @@ export const deleteWeightEntry = (id: string): void => {
  */
 export const clearAllData = (): void => {
   localStorage.removeItem(STORAGE_KEY);
+};
+
+export const addNonScaleVictory = (victory: NonScaleVictory): void => {
+  const state = loadAppState();
+  state.victories.push(victory);
+  saveAppState(state);
+};
+
+export const deleteNonScaleVictory = (id: string): void => {
+  const state = loadAppState();
+  state.victories = state.victories.filter((v) => v.id !== id);
+  saveAppState(state);
 };
 
 /**
