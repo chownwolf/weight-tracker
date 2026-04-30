@@ -66,6 +66,34 @@
   font-size: 18px;
 }
 
+.goal-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.goal-section-header h2 {
+  margin: 0;
+}
+
+.edit-goal-btn {
+  background: none;
+  border: 1px solid #667eea;
+  color: #667eea;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.edit-goal-btn:hover {
+  background: #667eea;
+  color: white;
+}
+
 .weight-form {
   display: flex;
   flex-direction: column;

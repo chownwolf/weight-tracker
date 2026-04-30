@@ -177,3 +177,47 @@ body {
 :root[data-theme="dark"] .modal-overlay {
   background: rgba(0, 0, 0, 0.7);
 }
+
+:root[data-theme="dark"] .nsv-section {
+  background: #1e2029;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+:root[data-theme="dark"] .nsv-section h2 {
+  color: #e4e6ef;
+}
+
+:root[data-theme="dark"] .nsv-item {
+  background: #252830;
+  border-left-color: #818cf8;
+}
+
+:root[data-theme="dark"] .nsv-item-text {
+  color: #e4e6ef;
+}
+
+:root[data-theme="dark"] .nsv-item-date {
+  color: #9ca3af;
+}
+
+:root[data-theme="dark"] .nsv-empty {
+  color: #6b7280;
+}
+
+:root[data-theme="dark"] .nsv-delete-btn {
+  color: #4b5563;
+}
+
+:root[data-theme="dark"] .nsv-delete-btn:hover {
+  color: #f87171;
+}
+
+:root[data-theme="dark"] .edit-goal-btn {
+  border-color: #818cf8;
+  color: #818cf8;
+}
+
+:root[data-theme="dark"] .edit-goal-btn:hover {
+  background: #818cf8;
+  color: #111318;
+}

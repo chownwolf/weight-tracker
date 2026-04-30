@@ -183,7 +183,12 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
           {profile.goalWeight && (
             <div className="goal-section">
-              <h2>Goal Progress</h2>
+              <div className="goal-section-header">
+                <h2>Goal Progress</h2>
+                <button className="edit-goal-btn" onClick={() => setShowGoalModal(true)}>
+                  Edit Goal
+                </button>
+              </div>
               <div className="goal-info">
                 <div>
                   <div className="goal-label">Target Weight</div>
