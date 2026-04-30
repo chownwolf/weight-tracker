@@ -1,0 +1,179 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #f5f5f5;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-size: 18px;
+  color: #666;
+}
+
+/* ── Dark mode ─────────────────────────────────────────── */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+:root[data-theme="dark"] body,
+:root[data-theme="dark"] .dashboard,
+:root[data-theme="dark"] .charts,
+:root[data-theme="dark"] .weight-history {
+  background: #111318;
+}
+
+:root[data-theme="dark"] .stat-card,
+:root[data-theme="dark"] .entry-section,
+:root[data-theme="dark"] .goal-section,
+:root[data-theme="dark"] .chart-card,
+:root[data-theme="dark"] .stats-summary,
+:root[data-theme="dark"] .modal-content {
+  background: #1e2029;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+:root[data-theme="dark"] .stat-value,
+:root[data-theme="dark"] .goal-value,
+:root[data-theme="dark"] .entry-section h2,
+:root[data-theme="dark"] .goal-section h2,
+:root[data-theme="dark"] .chart-card h2,
+:root[data-theme="dark"] .charts-container h1,
+:root[data-theme="dark"] .history-header h1,
+:root[data-theme="dark"] .stats-summary h2,
+:root[data-theme="dark"] .modal-content h2,
+:root[data-theme="dark"] .form-group label,
+:root[data-theme="dark"] .summary-item .value,
+:root[data-theme="dark"] .col-date,
+:root[data-theme="dark"] .col-weight,
+:root[data-theme="dark"] .col-notes {
+  color: #e4e6ef;
+}
+
+:root[data-theme="dark"] .stat-label,
+:root[data-theme="dark"] .goal-label,
+:root[data-theme="dark"] .progress-text,
+:root[data-theme="dark"] .summary-item .label,
+:root[data-theme="dark"] .stat-subtext,
+:root[data-theme="dark"] .no-data {
+  color: #9ca3af;
+}
+
+:root[data-theme="dark"] .form-group input,
+:root[data-theme="dark"] .form-group textarea {
+  background: #2a2d38;
+  border-color: #3a3d4a;
+  color: #e4e6ef;
+}
+
+:root[data-theme="dark"] .form-group input:focus,
+:root[data-theme="dark"] .form-group textarea:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+:root[data-theme="dark"] .progress-bar {
+  background: #2a2d38;
+}
+
+:root[data-theme="dark"] .goal-info {
+  border-bottom-color: #2a2d38;
+}
+
+:root[data-theme="dark"] .summary-item {
+  border-bottom-color: #2a2d38;
+}
+
+:root[data-theme="dark"] .cancel-btn {
+  background: #2a2d38;
+  color: #e4e6ef;
+}
+
+:root[data-theme="dark"] .cancel-btn:hover {
+  background: #333645;
+}
+
+:root[data-theme="dark"] .table-header {
+  background: #2a2d38;
+  color: #9ca3af;
+}
+
+:root[data-theme="dark"] .table-row {
+  background: #1e2029;
+  border-bottom-color: #2a2d38;
+  color: #e4e6ef;
+}
+
+:root[data-theme="dark"] .table-row:hover {
+  background: #252830;
+}
+
+:root[data-theme="dark"] .filter-section input {
+  background: #2a2d38;
+  border-color: #3a3d4a;
+  color: #e4e6ef;
+}
+
+:root[data-theme="dark"] .stats {
+  background: #1e2029;
+  border-top-color: #2a2d38;
+}
+
+:root[data-theme="dark"] .stats .label {
+  color: #9ca3af;
+}
+
+:root[data-theme="dark"] .stats .value {
+  color: #e4e6ef;
+}
+
+:root[data-theme="dark"] .export-btn {
+  background: #1e2029;
+  border-color: #667eea;
+  color: #667eea;
+}
+
+:root[data-theme="dark"] .export-btn:hover {
+  background: #667eea;
+  color: white;
+}
+
+:root[data-theme="dark"] .goal-section.empty {
+  color: #6b7280;
+}
+
+:root[data-theme="dark"] .goal-value.projected {
+  color: #818cf8;
+}
+
+:root[data-theme="dark"] .modal-overlay {
+  background: rgba(0, 0, 0, 0.7);
+}
