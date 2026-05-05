@@ -24,10 +24,23 @@ export interface NonScaleVictory {
   text: string;
 }
 
+export interface FoodEntry {
+  id: string;
+  date: string;
+  name: string;
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+  servingDesc?: string;
+}
+
 export interface AppState {
   profile: Profile | null;
   entries: WeightEntry[];
   victories: NonScaleVictory[];
+  foodEntries: FoodEntry[];
+  dailyCalorieGoal?: number;
 }
 
 export interface WeightStats {

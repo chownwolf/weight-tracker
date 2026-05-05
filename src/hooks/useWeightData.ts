@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import type { Profile, WeightEntry, AppState } from '../types';
+import type { Profile, WeightEntry, AppState, FoodEntry } from '../types';
 import {
   loadAppState,
   saveProfile as storageUpdateProfile,
@@ -8,13 +8,16 @@ import {
   deleteWeightEntry as storageDeleteEntry,
   addNonScaleVictory as storageAddVictory,
   deleteNonScaleVictory as storageDeleteVictory,
+  addFoodEntry as storageAddFood,
+  deleteFoodEntry as storageDeleteFood,
+  setCalorieGoal as storageSetCalorieGoal,
 } from '../utils/storage';
 
 /**
  * Custom hook for managing weight data and profile
  */
 export const useWeightData = () => {
-  const [state, setState] = useState<AppState>({ profile: null, entries: [], victories: [] });
+  const [state, setState] = useState<AppState>({ profile: null, entries: [], victories: [], foodEntries: [] });
   const [isLoading, setIsLoading] = useState(true);
 
   // Load initial state from localStorage
@@ -75,10 +78,28 @@ export const useWeightData = () => {
     storageDeleteVictory(id);
   }, []);
 
+  const addFoodEntry = useCallback((entry: Omit<FoodEntry, 'id'>) => {
+    const full: FoodEntry = { ...entry, id: generateId() };
+    setState((prev) => ({ ...prev, foodEntries: [...prev.foodEntries, full] }));
+    storageAddFood(full);
+  }, []);
+
+  const deleteFoodEntry = useCallback((id: string) => {
+    setState((prev) => ({ ...prev, foodEntries: prev.foodEntries.filter((e) => e.id !== id) }));
+    storageDeleteFood(id);
+  }, []);
+
+  const setCalorieGoal = useCallback((goal: number) => {
+    setState((prev) => ({ ...prev, dailyCalorieGoal: goal }));
+    storageSetCalorieGoal(goal);
+  }, []);
+
   return {
     profile: state.profile,
     entries: state.entries,
     victories: state.victories,
+    foodEntries: state.foodEntries,
+    dailyCalorieGoal: state.dailyCalorieGoal,
     isLoading,
     saveProfile,
     addWeightEntry,
@@ -86,6 +107,9 @@ export const useWeightData = () => {
     deleteWeightEntry,
     addVictory,
     deleteVictory,
+    addFoodEntry,
+    deleteFoodEntry,
+    setCalorieGoal,
   };
 };
 

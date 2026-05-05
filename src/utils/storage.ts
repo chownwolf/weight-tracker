@@ -1,4 +1,4 @@
-import type { Profile, WeightEntry, AppState, NonScaleVictory } from '../types';
+import type { Profile, WeightEntry, AppState, NonScaleVictory, FoodEntry } from '../types';
 
 const STORAGE_KEY = 'weight-tracker-app-state';
 
@@ -9,13 +9,13 @@ export const loadAppState = (): AppState => {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (!stored) {
-      return { profile: null, entries: [], victories: [] };
+      return { profile: null, entries: [], victories: [], foodEntries: [] };
     }
     const parsed = JSON.parse(stored);
-    return { victories: [], ...parsed };
+    return { victories: [], foodEntries: [], ...parsed };
   } catch (error) {
     console.error('Error loading app state:', error);
-    return { profile: null, entries: [], victories: [] };
+    return { profile: null, entries: [], victories: [], foodEntries: [] };
   }
 };
 
@@ -104,6 +104,24 @@ export const deleteNonScaleVictory = (id: string): void => {
   saveAppState(state);
 };
 
+export const addFoodEntry = (entry: FoodEntry): void => {
+  const state = loadAppState();
+  state.foodEntries.push(entry);
+  saveAppState(state);
+};
+
+export const deleteFoodEntry = (id: string): void => {
+  const state = loadAppState();
+  state.foodEntries = state.foodEntries.filter((e) => e.id !== id);
+  saveAppState(state);
+};
+
+export const setCalorieGoal = (goal: number): void => {
+  const state = loadAppState();
+  state.dailyCalorieGoal = goal;
+  saveAppState(state);
+};
+
 /**
  * Export data as JSON string
  */
@@ -151,6 +169,16 @@ export const exportDataAsCSV = (): string => {
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
       .forEach((v) => {
         csv += `${v.date},"${v.text}"\n`;
+      });
+  }
+
+  if (state.foodEntries.length > 0) {
+    csv += '\n\nFood Entries\n';
+    csv += 'Date,Food,Calories (kcal),Protein (g),Carbs (g),Fat (g),Serving\n';
+    state.foodEntries
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+      .forEach((e) => {
+        csv += `${e.date},"${e.name}",${e.calories},${e.protein},${e.carbs},${e.fat},"${e.servingDesc || ''}"\n`;
       });
   }
 

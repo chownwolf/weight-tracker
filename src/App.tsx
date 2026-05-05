@@ -5,14 +5,15 @@ import { Navigation } from './components/Navigation';
 import { Dashboard } from './components/Dashboard';
 import { Charts } from './components/Charts';
 import { WeightHistory } from './components/WeightHistory';
+import { Calories } from './components/Calories';
 import { useWeightData } from './hooks/useWeightData';
 import { clearAllData, exportDataAsCSV } from './utils/storage';
 import './App.css';
 
-type PageType = 'dashboard' | 'charts' | 'history';
+type PageType = 'dashboard' | 'charts' | 'history' | 'calories';
 
 function App() {
-  const { profile, entries, victories, isLoading, saveProfile, addWeightEntry, updateWeightEntry, deleteWeightEntry, addVictory, deleteVictory } = useWeightData();
+  const { profile, entries, victories, foodEntries, dailyCalorieGoal, isLoading, saveProfile, addWeightEntry, updateWeightEntry, deleteWeightEntry, addVictory, deleteVictory, addFoodEntry, deleteFoodEntry, setCalorieGoal } = useWeightData();
   const [currentPage, setCurrentPage] = useState<PageType>('dashboard');
   const [darkMode, setDarkMode] = useState(() => localStorage.getItem('darkMode') === 'true');
   const [showResetModal, setShowResetModal] = useState(false);
@@ -120,6 +121,16 @@ function App() {
         )}
 
         {currentPage === 'charts' && <Charts profile={profile} entries={entries} />}
+
+        {currentPage === 'calories' && (
+          <Calories
+            foodEntries={foodEntries}
+            dailyCalorieGoal={dailyCalorieGoal}
+            onAddEntry={addFoodEntry}
+            onDeleteEntry={deleteFoodEntry}
+            onSetGoal={setCalorieGoal}
+          />
+        )}
 
         {currentPage === 'history' && (
           <WeightHistory

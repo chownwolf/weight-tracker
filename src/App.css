@@ -362,6 +362,103 @@ body {
   background: #4a1a1a;
 }
 
+:root[data-theme="dark"] .calories {
+  background: #111318;
+}
+
+:root[data-theme="dark"] .cal-summary-card,
+:root[data-theme="dark"] .cal-add-card,
+:root[data-theme="dark"] .cal-entries-card {
+  background: #1e2029;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+:root[data-theme="dark"] .cal-date-row h2,
+:root[data-theme="dark"] .cal-entries-card h2,
+:root[data-theme="dark"] .cal-total-value,
+:root[data-theme="dark"] .cal-entry-name,
+:root[data-theme="dark"] .cal-entry-kcal,
+:root[data-theme="dark"] .cal-preview-kcal {
+  color: #e4e6ef;
+}
+
+:root[data-theme="dark"] .cal-total-label,
+:root[data-theme="dark"] .cal-progress-text,
+:root[data-theme="dark"] .cal-entry-serving,
+:root[data-theme="dark"] .cal-empty,
+:root[data-theme="dark"] .cal-grams-label {
+  color: #9ca3af;
+}
+
+:root[data-theme="dark"] .cal-date-input,
+:root[data-theme="dark"] .cal-search-input,
+:root[data-theme="dark"] .cal-grams-input,
+:root[data-theme="dark"] .cal-goal-edit input {
+  background: #2a2d38;
+  border-color: #3a3d4a;
+  color: #e4e6ef;
+}
+
+:root[data-theme="dark"] .cal-mode-btn {
+  background: #2a2d38;
+  border-color: #3a3d4a;
+  color: #9ca3af;
+}
+
+:root[data-theme="dark"] .cal-mode-btn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: transparent;
+}
+
+:root[data-theme="dark"] .cal-dropdown {
+  background: #1e2029;
+  border-color: #3a3d4a;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+:root[data-theme="dark"] .cal-dropdown-item:hover {
+  background: #252830;
+}
+
+:root[data-theme="dark"] .cal-dropdown-name {
+  color: #e4e6ef;
+}
+
+:root[data-theme="dark"] .cal-dropdown-empty {
+  color: #6b7280;
+}
+
+:root[data-theme="dark"] .cal-entry-item {
+  background: #252830;
+}
+
+:root[data-theme="dark"] .cal-progress-bar {
+  background: #2a2d38;
+}
+
+:root[data-theme="dark"] .cal-set-goal-btn {
+  border-color: #818cf8;
+  color: #818cf8;
+}
+
+:root[data-theme="dark"] .cal-set-goal-btn:hover {
+  background: #818cf8;
+  color: #111318;
+}
+
+:root[data-theme="dark"] .cal-delete-btn {
+  color: #4b5563;
+}
+
+:root[data-theme="dark"] .cal-delete-btn:hover {
+  color: #f87171;
+}
+
+:root[data-theme="dark"] .cal-goal-cancel-btn {
+  color: #6b7280;
+}
+
 :root[data-theme="dark"] .nsv-section {
   background: #1e2029;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
