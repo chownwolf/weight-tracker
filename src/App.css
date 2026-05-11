@@ -313,6 +313,14 @@ body {
   color: #818cf8;
 }
 
+:root[data-theme="dark"] .stat-value--loss {
+  color: #4ade80;
+}
+
+:root[data-theme="dark"] .stat-value--gain {
+  color: #f87171;
+}
+
 :root[data-theme="dark"] .modal-overlay {
   background: rgba(0, 0, 0, 0.7);
 }

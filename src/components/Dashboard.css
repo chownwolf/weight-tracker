@@ -45,6 +45,14 @@
   color: #999;
 }
 
+.stat-value--loss {
+  color: #16a34a;
+}
+
+.stat-value--gain {
+  color: #dc2626;
+}
+
 .main-content {
   display: grid;
   grid-template-columns: 1fr 1fr;

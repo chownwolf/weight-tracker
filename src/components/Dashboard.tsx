@@ -98,9 +98,15 @@ export const Dashboard: React.FC<DashboardProps> = ({
           <div className="stat-card">
             <div className="stat-label">Current Weight</div>
             <div className="stat-value">{displayWeight(stats.currentWeight, units)} {unit}</div>
-            <div className="stat-subtext">
-              {stats.totalWeightLoss > 0 ? '📉' : '📈'} {Math.abs(displayWeight(stats.totalWeightLoss, units))} {unit}
+            <div className="stat-subtext">since {format(new Date(profile.startDate), 'MMM d, yyyy')}</div>
+          </div>
+
+          <div className="stat-card">
+            <div className="stat-label">Total Lost</div>
+            <div className={`stat-value ${stats.totalWeightLoss > 0 ? 'stat-value--loss' : 'stat-value--gain'}`}>
+              {stats.totalWeightLoss > 0 ? '−' : '+'}{Math.abs(displayWeight(stats.totalWeightLoss, units))} {unit}
             </div>
+            <div className="stat-subtext">from {displayWeight(profile.startWeight, units)} {unit}</div>
           </div>
 
           <div className="stat-card">
