@@ -1,10 +1,17 @@
 import { useMemo } from 'react';
-import type { Profile, WeightEntry, WeightStats, GoalProjection } from '../types';
+import type { Profile, WeightEntry, WeightStats, GoalProjection, Milestone } from '../types';
 import {
   getWeightLossStats,
   daysToGoal,
   projectedGoalDate,
 } from '../utils/calculations';
+
+export interface MilestoneProjection {
+  milestone: Milestone;
+  achieved: boolean;
+  daysToGoal: number | null;
+  projectedDate: string | null;
+}
 
 const calcStreak = (entries: WeightEntry[]): number => {
   if (entries.length === 0) return 0;
@@ -58,7 +65,23 @@ export const useCalculations = (profile: Profile | null, entries: WeightEntry[])
     };
   }, [profile, stats]);
 
+  const milestoneProjections = useMemo<MilestoneProjection[]>(() => {
+    if (!profile || !stats) return [];
+    const milestones = [...(profile.milestones ?? [])].sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    );
+    return milestones.map((m) => {
+      const achieved = stats.currentWeight <= m.weight;
+      return {
+        milestone: m,
+        achieved,
+        daysToGoal: achieved ? null : daysToGoal(stats.currentWeight, m.weight, stats.weeklyAverageRate),
+        projectedDate: achieved ? null : projectedGoalDate(stats.currentWeight, m.weight, stats.weeklyAverageRate),
+      };
+    });
+  }, [profile, stats]);
+
   const streak = useMemo(() => calcStreak(entries), [entries]);
 
-  return { stats, goalProjection, streak };
+  return { stats, goalProjection, milestoneProjections, streak };
 };

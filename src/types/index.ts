@@ -9,6 +9,14 @@ export interface Profile {
   units: UnitSystem;
   goalWeight?: number; // Optional target weight in kg
   goalDate?: string; // Optional target date (ISO string)
+  milestones?: Milestone[]; // Optional short-term goals leading to goalWeight
+}
+
+export interface Milestone {
+  id: string;
+  weight: number; // Target weight in kg
+  date: string; // ISO date string
+  label?: string; // Optional user-facing name
 }
 
 export interface WeightEntry {

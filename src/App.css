@@ -321,6 +321,37 @@ body {
   color: #f87171;
 }
 
+:root[data-theme="dark"] .milestone-item {
+  background: #252830;
+}
+
+:root[data-theme="dark"] .milestone-item--achieved {
+  background: #142b1c;
+}
+
+:root[data-theme="dark"] .milestone-label {
+  color: #e4e6ef;
+}
+
+:root[data-theme="dark"] .milestone-date {
+  color: #9ca3af;
+}
+
+:root[data-theme="dark"] .milestone-projected {
+  color: #818cf8;
+}
+
+:root[data-theme="dark"] .form-divider::before,
+:root[data-theme="dark"] .form-divider::after {
+  background: #2a2d38;
+}
+
+:root[data-theme="dark"] .milestone-row-fields input {
+  background: #2a2d38;
+  border-color: #3a3d4a;
+  color: #e4e6ef;
+}
+
 :root[data-theme="dark"] .modal-overlay {
   background: rgba(0, 0, 0, 0.7);
 }

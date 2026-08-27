@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import type { UnitSystem } from './types';
+import type { UnitSystem, Milestone } from './types';
 import { ProfileSetup } from './components/ProfileSetup';
 import { Navigation } from './components/Navigation';
 import { Dashboard } from './components/Dashboard';
@@ -65,6 +65,11 @@ function App() {
     saveProfile(updatedProfile);
   };
 
+  const handleUpdateMilestones = (milestones: Milestone[]) => {
+    const updatedProfile = { ...profile, milestones };
+    saveProfile(updatedProfile);
+  };
+
   const handleOpenProfileModal = () => {
     const totalInches = profile.heightCm / 2.54;
     const ft = Math.floor(totalInches / 12);
@@ -115,6 +120,7 @@ function App() {
             victories={victories}
             onAddEntry={addWeightEntry}
             onUpdateGoal={handleUpdateGoal}
+            onUpdateMilestones={handleUpdateMilestones}
             onAddVictory={addVictory}
             onDeleteVictory={deleteVictory}
           />

@@ -12,6 +12,7 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  ReferenceDot,
   ResponsiveContainer,
 } from 'recharts';
 import { format } from 'date-fns';
@@ -58,12 +59,16 @@ export const Charts: React.FC<ChartsProps> = ({ profile, entries }) => {
     if (sortedEntries.length === 0) return [];
 
     const goalWeight = displayWeight(profile.goalWeight, units);
-    const data: Array<{ date: string; actual?: number; projected?: number; goal: number }> =
-      sortedEntries.slice(-20).map((entry) => ({
-        date: format(new Date(entry.date), 'MMM d'),
+    type Point = { date: string; timestamp: number; actual?: number; projected?: number; goal: number };
+    const points: Point[] = sortedEntries.slice(-20).map((entry) => {
+      const d = new Date(entry.date);
+      return {
+        date: format(d, 'MMM d'),
+        timestamp: d.getTime(),
         actual: displayWeight(entry.weight, units),
         goal: goalWeight,
-      }));
+      };
+    });
 
     const lastDate = new Date(sortedEntries[sortedEntries.length - 1].date);
     for (let i = 1; i <= 12; i++) {
@@ -76,15 +81,40 @@ export const Charts: React.FC<ChartsProps> = ({ profile, entries }) => {
         futureDate.toISOString()
       );
 
-      data.push({
+      points.push({
         date: format(futureDate, 'MMM d'),
+        timestamp: futureDate.getTime(),
         projected: displayWeight(projectedKg, units),
         goal: goalWeight,
       });
     }
 
-    return data;
-  }, [entries, profile.goalWeight, stats, units]);
+    const existingDates = new Set(points.map((p) => p.date));
+    (profile.milestones ?? []).forEach((m) => {
+      const label = format(new Date(m.date), 'MMM d');
+      if (!existingDates.has(label)) {
+        existingDates.add(label);
+        points.push({ date: label, timestamp: new Date(m.date).getTime(), goal: goalWeight });
+      }
+    });
+
+    points.sort((a, b) => a.timestamp - b.timestamp);
+
+    return points.map(({ timestamp: _timestamp, ...rest }) => rest);
+  }, [entries, profile.goalWeight, profile.milestones, stats, units]);
+
+  const milestoneMarkers = useMemo(() => {
+    if (!profile.milestones || profile.milestones.length === 0) return [];
+    const dateLabels = new Set(projectionData.map((d) => d.date));
+    return profile.milestones
+      .map((m) => ({
+        id: m.id,
+        x: format(new Date(m.date), 'MMM d'),
+        y: displayWeight(m.weight, units),
+        label: m.label,
+      }))
+      .filter((m) => dateLabels.has(m.x));
+  }, [profile.milestones, projectionData, units]);
 
   if (!stats) return <div>Loading...</div>;
 
@@ -199,6 +229,17 @@ export const Charts: React.FC<ChartsProps> = ({ profile, entries }) => {
                     dot={false}
                     name="Goal"
                   />
+                  {milestoneMarkers.map((marker) => (
+                    <ReferenceDot
+                      key={marker.id}
+                      x={marker.x}
+                      y={marker.y}
+                      r={5}
+                      fill="#f39c12"
+                      stroke="#fff"
+                      label={{ value: marker.label || `${marker.y}${unit}`, position: 'top', fontSize: 11 }}
+                    />
+                  ))}
                 </LineChart>
               </ResponsiveContainer>
             ) : (

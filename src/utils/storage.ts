@@ -154,6 +154,16 @@ export const exportDataAsCSV = (): string => {
     csv += `Goal Date,${state.profile.goalDate}\n`;
   }
 
+  if (state.profile.milestones && state.profile.milestones.length > 0) {
+    csv += '\n\nMilestones\n';
+    csv += 'Label,Weight (kg),Date\n';
+    [...state.profile.milestones]
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+      .forEach((m) => {
+        csv += `"${m.label || ''}",${m.weight},${m.date}\n`;
+      });
+  }
+
   csv += '\n\nWeight Entries\n';
   csv += 'Date,Weight (kg),Notes\n';
   state.entries

@@ -390,6 +390,139 @@
   color: #e55;
 }
 
+.milestone-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.milestone-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  background: #f9f9ff;
+  border-radius: 8px;
+  border-left: 3px solid #667eea;
+  font-size: 13px;
+}
+
+.milestone-item--achieved {
+  background: #f0fdf4;
+  border-left-color: #16a34a;
+}
+
+.milestone-label {
+  font-weight: 600;
+  color: #333;
+  flex: 1;
+}
+
+.milestone-date {
+  color: #999;
+}
+
+.milestone-badge {
+  color: #16a34a;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.milestone-projected {
+  color: #667eea;
+  font-size: 12px;
+}
+
+.form-divider {
+  display: flex;
+  align-items: center;
+  color: #999;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-divider::before,
+.form-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #f0f0f0;
+}
+
+.form-divider span {
+  padding: 0 10px;
+}
+
+.milestone-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.milestone-row-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.milestone-row-fields input {
+  padding: 8px 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: inherit;
+  min-width: 0;
+}
+
+.milestone-row-fields input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.milestone-remove-btn {
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+  transition: color 0.2s ease;
+}
+
+.milestone-remove-btn:hover {
+  color: #e55;
+}
+
+.add-milestone-btn {
+  background: none;
+  border: 1px solid #667eea;
+  color: #667eea;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  align-self: flex-start;
+}
+
+.add-milestone-btn:hover {
+  background: #667eea;
+  color: white;
+}
+
+.milestone-row-error {
+  color: #dc2626;
+  font-size: 12px;
+}
+
 @media (max-width: 768px) {
   .main-content {
     grid-template-columns: 1fr;
@@ -401,5 +534,9 @@
 
   .goal-info {
     flex-direction: column;
+  }
+
+  .milestone-row-fields {
+    grid-template-columns: 1fr 1fr;
   }
 }
