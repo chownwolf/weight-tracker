@@ -2,8 +2,8 @@ import React from 'react';
 import './Navigation.css';
 
 interface NavigationProps {
-  currentPage: 'dashboard' | 'charts' | 'history' | 'calories';
-  onPageChange: (page: 'dashboard' | 'charts' | 'history' | 'calories') => void;
+  currentPage: 'dashboard' | 'charts' | 'history' | 'calories' | 'bodyfat';
+  onPageChange: (page: 'dashboard' | 'charts' | 'history' | 'calories' | 'bodyfat') => void;
   onResetProfile: () => void;
   onEditProfile: () => void;
   profileName: string;
@@ -52,6 +52,12 @@ export const Navigation: React.FC<NavigationProps> = ({
             onClick={() => onPageChange('calories')}
           >
             Calories
+          </button>
+          <button
+            className={`nav-link ${currentPage === 'bodyfat' ? 'active' : ''}`}
+            onClick={() => onPageChange('bodyfat')}
+          >
+            Body Fat
           </button>
         </div>
 

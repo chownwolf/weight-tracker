@@ -11,3 +11,15 @@ export const inputToKg = (val: number, units: UnitSystem): number =>
 
 export const weightUnit = (units: UnitSystem): string =>
   units === 'imperial' ? 'lbs' : 'kg';
+
+export const cmToIn = (cm: number): number => Math.round((cm / 2.54) * 10) / 10;
+export const inToCm = (inches: number): number => inches * 2.54;
+
+export const displayLength = (cm: number, units: UnitSystem): number =>
+  units === 'imperial' ? cmToIn(cm) : Math.round(cm * 100) / 100;
+
+export const inputToCm = (val: number, units: UnitSystem): number =>
+  units === 'imperial' ? inToCm(val) : val;
+
+export const lengthUnit = (units: UnitSystem): string =>
+  units === 'imperial' ? 'in' : 'cm';

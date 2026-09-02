@@ -1,5 +1,7 @@
 export type UnitSystem = 'metric' | 'imperial';
 
+export type Sex = 'male' | 'female';
+
 export interface Profile {
   name: string;
   heightCm: number; // Height in centimeters
@@ -7,6 +9,7 @@ export interface Profile {
   startWeight: number; // Starting weight in kg
   startDate: string; // ISO date string
   units: UnitSystem;
+  sex?: Sex; // Optional: needed for body fat % estimate, absent on older profiles
   goalWeight?: number; // Optional target weight in kg
   goalDate?: string; // Optional target date (ISO string)
   milestones?: Milestone[]; // Optional short-term goals leading to goalWeight
@@ -43,11 +46,21 @@ export interface FoodEntry {
   servingDesc?: string;
 }
 
+export interface BodyMeasurementEntry {
+  id: string;
+  date: string; // ISO date string
+  neckCm: number;
+  waistCm: number;
+  hipCm?: number; // Required for female Navy formula, omitted for male
+  notes?: string;
+}
+
 export interface AppState {
   profile: Profile | null;
   entries: WeightEntry[];
   victories: NonScaleVictory[];
   foodEntries: FoodEntry[];
+  bodyMeasurements: BodyMeasurementEntry[];
   dailyCalorieGoal?: number;
 }
 

@@ -1,24 +1,25 @@
 import { useState, useEffect } from 'react';
-import type { UnitSystem, Milestone } from './types';
+import type { UnitSystem, Milestone, Sex } from './types';
 import { ProfileSetup } from './components/ProfileSetup';
 import { Navigation } from './components/Navigation';
 import { Dashboard } from './components/Dashboard';
 import { Charts } from './components/Charts';
 import { WeightHistory } from './components/WeightHistory';
 import { Calories } from './components/Calories';
+import { BodyFat } from './components/BodyFat';
 import { useWeightData } from './hooks/useWeightData';
 import { clearAllData, exportDataAsCSV } from './utils/storage';
 import './App.css';
 
-type PageType = 'dashboard' | 'charts' | 'history' | 'calories';
+type PageType = 'dashboard' | 'charts' | 'history' | 'calories' | 'bodyfat';
 
 function App() {
-  const { profile, entries, victories, foodEntries, dailyCalorieGoal, isLoading, saveProfile, addWeightEntry, updateWeightEntry, deleteWeightEntry, addVictory, deleteVictory, addFoodEntry, deleteFoodEntry, setCalorieGoal } = useWeightData();
+  const { profile, entries, victories, foodEntries, bodyMeasurements, dailyCalorieGoal, isLoading, saveProfile, addWeightEntry, updateWeightEntry, deleteWeightEntry, addVictory, deleteVictory, addFoodEntry, deleteFoodEntry, addBodyMeasurement, deleteBodyMeasurement, setCalorieGoal } = useWeightData();
   const [currentPage, setCurrentPage] = useState<PageType>('dashboard');
   const [darkMode, setDarkMode] = useState(() => localStorage.getItem('darkMode') === 'true');
   const [showResetModal, setShowResetModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
-  const [profileForm, setProfileForm] = useState({ name: '', age: '', heightCm: '', heightFt: '', heightIn: '', units: 'metric' as UnitSystem });
+  const [profileForm, setProfileForm] = useState({ name: '', age: '', heightCm: '', heightFt: '', heightIn: '', units: 'metric' as UnitSystem, sex: '' as Sex | '' });
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
@@ -81,6 +82,7 @@ function App() {
       heightFt: String(ft),
       heightIn: String(inches),
       units: profile.units ?? 'metric',
+      sex: profile.sex ?? '',
     });
     setShowProfileModal(true);
   };
@@ -96,7 +98,7 @@ function App() {
       heightCm = (ft * 12 + inches) * 2.54;
     }
     if (!profileForm.name.trim() || isNaN(heightCm) || heightCm <= 0 || isNaN(parseFloat(profileForm.age))) return;
-    saveProfile({ ...profile, name: profileForm.name.trim(), age: parseFloat(profileForm.age), heightCm, units: profileForm.units });
+    saveProfile({ ...profile, name: profileForm.name.trim(), age: parseFloat(profileForm.age), heightCm, units: profileForm.units, sex: profileForm.sex || undefined });
     setShowProfileModal(false);
   };
 
@@ -146,6 +148,16 @@ function App() {
             onDeleteEntry={deleteWeightEntry}
           />
         )}
+
+        {currentPage === 'bodyfat' && (
+          <BodyFat
+            profile={profile}
+            bodyMeasurements={bodyMeasurements}
+            onAddEntry={addBodyMeasurement}
+            onDeleteEntry={deleteBodyMeasurement}
+            onEditProfile={handleOpenProfileModal}
+          />
+        )}
       </main>
 
       {showProfileModal && (
@@ -166,6 +178,14 @@ function App() {
               <div className="form-group">
                 <label htmlFor="edit-age">Age</label>
                 <input id="edit-age" type="number" step="1" value={profileForm.age} onChange={(e) => setProfileForm((p) => ({ ...p, age: e.target.value }))} />
+              </div>
+
+              <div className="form-group">
+                <label>Sex</label>
+                <div className="unit-toggle-row">
+                  <button type="button" className={`unit-btn${profileForm.sex === 'male' ? ' active' : ''}`} onClick={() => setProfileForm((p) => ({ ...p, sex: 'male' }))}>Male</button>
+                  <button type="button" className={`unit-btn${profileForm.sex === 'female' ? ' active' : ''}`} onClick={() => setProfileForm((p) => ({ ...p, sex: 'female' }))}>Female</button>
+                </div>
               </div>
 
               {profileForm.units === 'metric' ? (

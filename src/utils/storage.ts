@@ -1,4 +1,5 @@
-import type { Profile, WeightEntry, AppState, NonScaleVictory, FoodEntry } from '../types';
+import type { Profile, WeightEntry, AppState, NonScaleVictory, FoodEntry, BodyMeasurementEntry } from '../types';
+import { calculateBodyFatNavy } from './calculations';
 
 const STORAGE_KEY = 'weight-tracker-app-state';
 
@@ -9,13 +10,13 @@ export const loadAppState = (): AppState => {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (!stored) {
-      return { profile: null, entries: [], victories: [], foodEntries: [] };
+      return { profile: null, entries: [], victories: [], foodEntries: [], bodyMeasurements: [] };
     }
     const parsed = JSON.parse(stored);
-    return { victories: [], foodEntries: [], ...parsed };
+    return { victories: [], foodEntries: [], bodyMeasurements: [], ...parsed };
   } catch (error) {
     console.error('Error loading app state:', error);
-    return { profile: null, entries: [], victories: [], foodEntries: [] };
+    return { profile: null, entries: [], victories: [], foodEntries: [], bodyMeasurements: [] };
   }
 };
 
@@ -116,6 +117,18 @@ export const deleteFoodEntry = (id: string): void => {
   saveAppState(state);
 };
 
+export const addBodyMeasurement = (entry: BodyMeasurementEntry): void => {
+  const state = loadAppState();
+  state.bodyMeasurements.push(entry);
+  saveAppState(state);
+};
+
+export const deleteBodyMeasurement = (id: string): void => {
+  const state = loadAppState();
+  state.bodyMeasurements = state.bodyMeasurements.filter((m) => m.id !== id);
+  saveAppState(state);
+};
+
 export const setCalorieGoal = (goal: number): void => {
   const state = loadAppState();
   state.dailyCalorieGoal = goal;
@@ -189,6 +202,19 @@ export const exportDataAsCSV = (): string => {
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
       .forEach((e) => {
         csv += `${e.date},"${e.name}",${e.calories},${e.protein},${e.carbs},${e.fat},"${e.servingDesc || ''}"\n`;
+      });
+  }
+
+  if (state.bodyMeasurements.length > 0) {
+    csv += '\n\nBody Measurements\n';
+    csv += 'Date,Neck (cm),Waist (cm),Hip (cm),Body Fat %,Notes\n';
+    state.bodyMeasurements
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+      .forEach((m) => {
+        const bf = state.profile?.sex
+          ? calculateBodyFatNavy(state.profile.sex, state.profile.heightCm, m.neckCm, m.waistCm, m.hipCm)
+          : null;
+        csv += `${m.date},${m.neckCm},${m.waistCm},${m.hipCm ?? ''},${bf ?? ''},"${m.notes || ''}"\n`;
       });
   }
 

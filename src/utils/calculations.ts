@@ -1,4 +1,4 @@
-import type { WeightEntry, Profile } from '../types';
+import type { WeightEntry, Profile, Sex } from '../types';
 import { differenceInDays } from 'date-fns';
 
 /**
@@ -8,6 +8,44 @@ import { differenceInDays } from 'date-fns';
 export const calculateBMI = (heightCm: number, weightKg: number): number => {
   const heightM = heightCm / 100;
   return Math.round((weightKg / (heightM * heightM)) * 100) / 100;
+};
+
+/**
+ * Estimate body fat % using the US Navy circumference method.
+ * hipCm is required (and used) only for the female formula.
+ * Returns null when inputs fall outside the formula's valid domain
+ * (e.g. waist <= neck) or produce a nonsensical result.
+ */
+export const calculateBodyFatNavy = (
+  sex: Sex,
+  heightCm: number,
+  neckCm: number,
+  waistCm: number,
+  hipCm?: number
+): number | null => {
+  if (heightCm <= 0 || neckCm <= 0 || waistCm <= 0) return null;
+
+  let bodyFat: number;
+
+  if (sex === 'male') {
+    const diff = waistCm - neckCm;
+    if (diff <= 0) return null;
+    bodyFat =
+      495 /
+        (1.0324 - 0.19077 * Math.log10(diff) + 0.15456 * Math.log10(heightCm)) -
+      450;
+  } else {
+    if (hipCm == null || hipCm <= 0) return null;
+    const diff = waistCm + hipCm - neckCm;
+    if (diff <= 0) return null;
+    bodyFat =
+      495 /
+        (1.29579 - 0.35004 * Math.log10(diff) + 0.221 * Math.log10(heightCm)) -
+      450;
+  }
+
+  if (!Number.isFinite(bodyFat) || bodyFat <= 0 || bodyFat > 100) return null;
+  return Math.round(bodyFat * 100) / 100;
 };
 
 /**

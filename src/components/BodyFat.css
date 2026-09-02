@@ -1,0 +1,193 @@
+.bodyfat {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding: 30px 20px;
+}
+
+.bodyfat-container {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Gate card (sex not set) ── */
+.bf-gate-card {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.bf-gate-card h2 {
+  margin: 0 0 12px 0;
+  color: #333;
+  font-size: 18px;
+}
+
+.bf-gate-card p {
+  color: #666;
+  font-size: 14px;
+  margin: 0 0 16px 0;
+}
+
+/* ── Summary card ── */
+.bf-summary-card {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.bf-summary-card h2 {
+  margin: 0 0 12px 0;
+  color: #333;
+  font-size: 18px;
+}
+
+.bf-summary-value {
+  font-size: 44px;
+  font-weight: 700;
+  color: #333;
+  line-height: 1;
+}
+
+.bf-summary-label {
+  display: block;
+  margin-top: 8px;
+  font-size: 13px;
+  color: #999;
+}
+
+/* ── Add measurement card ── */
+.bf-add-card {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.bf-add-card h2 {
+  margin: 0 0 16px 0;
+  color: #333;
+  font-size: 18px;
+}
+
+.bf-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Entries card ── */
+.bf-entries-card {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.bf-entries-card h2 {
+  margin: 0 0 16px 0;
+  color: #333;
+  font-size: 18px;
+}
+
+.bf-empty {
+  color: #999;
+  font-size: 14px;
+  text-align: center;
+  padding: 20px 0;
+  margin: 0;
+}
+
+.bf-entries-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bf-entry-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background: #fafafa;
+  border-radius: 8px;
+  gap: 12px;
+}
+
+.bf-entry-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.bf-entry-date {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.bf-entry-measurements {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.bf-measure-tag {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.bf-entry-notes {
+  font-size: 12px;
+  color: #999;
+}
+
+.bf-entry-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.bf-entry-pct {
+  font-size: 16px;
+  font-weight: 700;
+  color: #333;
+}
+
+.bf-delete-btn {
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 2px;
+  transition: color 0.2s ease;
+}
+
+.bf-delete-btn:hover {
+  color: #e55;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import type { Profile, UnitSystem } from '../types';
+import type { Profile, UnitSystem, Sex } from '../types';
 import { format } from 'date-fns';
 import './ProfileSetup.css';
 
@@ -9,6 +9,7 @@ interface ProfileSetupProps {
 
 export const ProfileSetup: React.FC<ProfileSetupProps> = ({ onProfileSaved }) => {
   const [units, setUnits] = useState<UnitSystem>('metric');
+  const [sex, setSex] = useState<Sex | ''>('');
   const [formData, setFormData] = useState({
     name: '',
     heightCm: '',
@@ -27,6 +28,10 @@ export const ProfileSetup: React.FC<ProfileSetupProps> = ({ onProfileSaved }) =>
 
     if (!formData.name.trim()) {
       newErrors.name = 'Name is required';
+    }
+
+    if (!sex) {
+      newErrors.sex = 'Please select your sex';
     }
 
     if (units === 'metric') {
@@ -102,6 +107,7 @@ export const ProfileSetup: React.FC<ProfileSetupProps> = ({ onProfileSaved }) =>
       startWeight,
       startDate: format(new Date(), 'yyyy-MM-dd'),
       units,
+      sex: sex || undefined,
     };
 
     if (formData.goalWeight) {
@@ -166,6 +172,27 @@ export const ProfileSetup: React.FC<ProfileSetupProps> = ({ onProfileSaved }) =>
               placeholder="Your name"
             />
             {errors.name && <span className="error">{errors.name}</span>}
+          </div>
+
+          <div className="form-group">
+            <label>Sex *</label>
+            <div className="unit-toggle">
+              <button
+                type="button"
+                className={`unit-btn${sex === 'male' ? ' active' : ''}`}
+                onClick={() => { setSex('male'); setErrors((prev) => ({ ...prev, sex: '' })); }}
+              >
+                Male
+              </button>
+              <button
+                type="button"
+                className={`unit-btn${sex === 'female' ? ' active' : ''}`}
+                onClick={() => { setSex('female'); setErrors((prev) => ({ ...prev, sex: '' })); }}
+              >
+                Female
+              </button>
+            </div>
+            {errors.sex && <span className="error">{errors.sex}</span>}
           </div>
 
           {units === 'metric' ? (

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import type { Profile, WeightEntry, AppState, FoodEntry } from '../types';
+import type { Profile, WeightEntry, AppState, FoodEntry, BodyMeasurementEntry } from '../types';
 import {
   loadAppState,
   saveProfile as storageUpdateProfile,
@@ -10,6 +10,8 @@ import {
   deleteNonScaleVictory as storageDeleteVictory,
   addFoodEntry as storageAddFood,
   deleteFoodEntry as storageDeleteFood,
+  addBodyMeasurement as storageAddBodyMeasurement,
+  deleteBodyMeasurement as storageDeleteBodyMeasurement,
   setCalorieGoal as storageSetCalorieGoal,
 } from '../utils/storage';
 
@@ -17,7 +19,7 @@ import {
  * Custom hook for managing weight data and profile
  */
 export const useWeightData = () => {
-  const [state, setState] = useState<AppState>({ profile: null, entries: [], victories: [], foodEntries: [] });
+  const [state, setState] = useState<AppState>({ profile: null, entries: [], victories: [], foodEntries: [], bodyMeasurements: [] });
   const [isLoading, setIsLoading] = useState(true);
 
   // Load initial state from localStorage
@@ -89,6 +91,17 @@ export const useWeightData = () => {
     storageDeleteFood(id);
   }, []);
 
+  const addBodyMeasurement = useCallback((entry: Omit<BodyMeasurementEntry, 'id'>) => {
+    const full: BodyMeasurementEntry = { ...entry, id: generateId() };
+    setState((prev) => ({ ...prev, bodyMeasurements: [...prev.bodyMeasurements, full] }));
+    storageAddBodyMeasurement(full);
+  }, []);
+
+  const deleteBodyMeasurement = useCallback((id: string) => {
+    setState((prev) => ({ ...prev, bodyMeasurements: prev.bodyMeasurements.filter((m) => m.id !== id) }));
+    storageDeleteBodyMeasurement(id);
+  }, []);
+
   const setCalorieGoal = useCallback((goal: number) => {
     setState((prev) => ({ ...prev, dailyCalorieGoal: goal }));
     storageSetCalorieGoal(goal);
@@ -99,6 +112,7 @@ export const useWeightData = () => {
     entries: state.entries,
     victories: state.victories,
     foodEntries: state.foodEntries,
+    bodyMeasurements: state.bodyMeasurements,
     dailyCalorieGoal: state.dailyCalorieGoal,
     isLoading,
     saveProfile,
@@ -109,6 +123,8 @@ export const useWeightData = () => {
     deleteVictory,
     addFoodEntry,
     deleteFoodEntry,
+    addBodyMeasurement,
+    deleteBodyMeasurement,
     setCalorieGoal,
   };
 };
