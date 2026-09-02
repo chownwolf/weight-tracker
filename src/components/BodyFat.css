@@ -191,3 +191,37 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ── Dark mode ── */
+:root[data-theme="dark"] .bodyfat {
+  background: #111318;
+}
+
+:root[data-theme="dark"] .bf-gate-card,
+:root[data-theme="dark"] .bf-summary-card,
+:root[data-theme="dark"] .bf-add-card,
+:root[data-theme="dark"] .bf-entries-card {
+  background: #1e2029;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+:root[data-theme="dark"] .bf-gate-card h2,
+:root[data-theme="dark"] .bf-summary-card h2,
+:root[data-theme="dark"] .bf-add-card h2,
+:root[data-theme="dark"] .bf-entries-card h2,
+:root[data-theme="dark"] .bf-summary-value,
+:root[data-theme="dark"] .bf-entry-date,
+:root[data-theme="dark"] .bf-entry-pct {
+  color: #e4e6ef;
+}
+
+:root[data-theme="dark"] .bf-gate-card p,
+:root[data-theme="dark"] .bf-summary-label,
+:root[data-theme="dark"] .bf-empty,
+:root[data-theme="dark"] .bf-entry-notes {
+  color: #9ca3af;
+}
+
+:root[data-theme="dark"] .bf-entry-item {
+  background: #2a2d38;
+}
