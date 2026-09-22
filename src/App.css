@@ -341,6 +341,10 @@ body {
   color: #818cf8;
 }
 
+:root[data-theme="dark"] .milestone-progress-bar {
+  background: #2a2d38;
+}
+
 :root[data-theme="dark"] .form-divider::before,
 :root[data-theme="dark"] .form-divider::after {
   background: #2a2d38;

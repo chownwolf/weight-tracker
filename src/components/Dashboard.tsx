@@ -302,24 +302,32 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
               {milestoneProjections.length > 0 && (
                 <div className="milestone-list">
-                  {milestoneProjections.map(({ milestone, achieved, projectedDate }) => (
+                  {milestoneProjections.map(({ milestone, achieved, projectedDate, progress }) => (
                     <div
                       key={milestone.id}
                       className={`milestone-item${achieved ? ' milestone-item--achieved' : ''}`}
                     >
-                      <span className="milestone-label">
-                        {milestone.label || `${displayWeight(milestone.weight, units)} ${unit}`}
-                      </span>
-                      <span className="milestone-date">{format(new Date(milestone.date), 'MMM d, yyyy')}</span>
-                      {achieved ? (
-                        <span className="milestone-badge">Achieved</span>
-                      ) : (
-                        projectedDate && (
-                          <span className="milestone-projected">
-                            {format(new Date(projectedDate), 'MMM d, yyyy')}
-                          </span>
-                        )
-                      )}
+                      <div className="milestone-item-row">
+                        <span className="milestone-label">
+                          {milestone.label || `${displayWeight(milestone.weight, units)} ${unit}`}
+                        </span>
+                        <span className="milestone-date">{format(new Date(milestone.date), 'MMM d, yyyy')}</span>
+                        {achieved ? (
+                          <span className="milestone-badge">Achieved</span>
+                        ) : (
+                          projectedDate && (
+                            <span className="milestone-projected">
+                              {format(new Date(projectedDate), 'MMM d, yyyy')}
+                            </span>
+                          )
+                        )}
+                      </div>
+                      <div className="milestone-progress-bar">
+                        <div
+                          className="milestone-progress-fill"
+                          style={{ width: `${Math.round(progress)}%` }}
+                        />
+                      </div>
                     </div>
                   ))}
                 </div>

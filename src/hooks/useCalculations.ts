@@ -11,6 +11,7 @@ export interface MilestoneProjection {
   achieved: boolean;
   daysToGoal: number | null;
   projectedDate: string | null;
+  progress: number; // 0-100, progress within this milestone's segment (prev milestone -> this one)
 }
 
 const calcStreak = (entries: WeightEntry[]): number => {
@@ -70,13 +71,18 @@ export const useCalculations = (profile: Profile | null, entries: WeightEntry[])
     const milestones = [...(profile.milestones ?? [])].sort(
       (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
     );
+    let baseWeight = profile.startWeight;
     return milestones.map((m) => {
       const achieved = stats.currentWeight <= m.weight;
+      const span = baseWeight - m.weight;
+      const progress = span === 0 ? (achieved ? 100 : 0) : Math.min(Math.max(((baseWeight - stats.currentWeight) / span) * 100, 0), 100);
+      baseWeight = m.weight;
       return {
         milestone: m,
         achieved,
         daysToGoal: achieved ? null : daysToGoal(stats.currentWeight, m.weight, stats.weeklyAverageRate),
         projectedDate: achieved ? null : projectedGoalDate(stats.currentWeight, m.weight, stats.weeklyAverageRate),
+        progress,
       };
     });
   }, [profile, stats]);
