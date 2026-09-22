@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { Profile, WeightEntry, NonScaleVictory, Milestone } from '../types';
 import { useCalculations } from '../hooks/useCalculations';
 import { displayWeight, inputToKg, weightUnit } from '../utils/units';
@@ -34,6 +34,11 @@ export const Dashboard: React.FC<DashboardProps> = ({
   onDeleteVictory,
 }) => {
   const { stats, goalProjection, milestoneProjections, streak } = useCalculations(profile, entries);
+  const [barsAnimated, setBarsAnimated] = useState(false);
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => setBarsAnimated(true));
+    return () => cancelAnimationFrame(frame);
+  }, []);
   const units = profile.units ?? 'metric';
   const unit = weightUnit(units);
   const maxGoalWeight = units === 'metric' ? 500 : 1100;
@@ -293,7 +298,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   <div
                     className="progress-fill"
                     style={{
-                      width: `${Math.min(Math.max(goalProgress, 0), 100)}%`,
+                      width: barsAnimated ? `${Math.min(Math.max(goalProgress, 0), 100)}%` : '0%',
                     }}
                   />
                 </div>
@@ -325,7 +330,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                       <div className="milestone-progress-bar">
                         <div
                           className="milestone-progress-fill"
-                          style={{ width: `${Math.round(progress)}%` }}
+                          style={{ width: barsAnimated ? `${Math.round(progress)}%` : '0%' }}
                         />
                       </div>
                     </div>
