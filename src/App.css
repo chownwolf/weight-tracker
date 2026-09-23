@@ -7,8 +7,12 @@
 html,
 body,
 #root {
-  height: 100%;
+  min-height: 100%;
   width: 100%;
+}
+
+html {
+  background: #f5f5f5;
 }
 
 body {
@@ -181,6 +185,7 @@ body {
 /* ── Dark mode ─────────────────────────────────────────── */
 :root[data-theme="dark"] {
   color-scheme: dark;
+  background: #111318;
 }
 
 :root[data-theme="dark"] body,
